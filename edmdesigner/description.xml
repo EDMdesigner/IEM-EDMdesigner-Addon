@@ -1,0 +1,9 @@
+<addon_description>
+	<name>EDMdesigner</name>
+	<description>Create custom, responsive email templates without coding.</description>
+	<author>EDMdesigner.com</author>
+	<version>1.1</version>
+	<hasconfiguration>1</hasconfiguration>
+	<license>Commercial</license>
+	<licenseurl>http://www.edmdesigner.com</licenseurl>
+</addon_description>
