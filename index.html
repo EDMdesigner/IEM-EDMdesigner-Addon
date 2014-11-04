@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="IEM-EDMdesigner-Addon : An EDMdesigner plugin for Interspire Email Marketer.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>IEM-EDMdesigner-Addon</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/EDMdesigner/IEM-EDMdesigner-Addon">View on GitHub</a>
+
+          <h1 id="project_title">IEM-EDMdesigner-Addon</h1>
+          <h2 id="project_tagline">An EDMdesigner plugin for Interspire Email Marketer.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/EDMdesigner/IEM-EDMdesigner-Addon/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/EDMdesigner/IEM-EDMdesigner-Addon/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="iem-edmdesigner-addon" class="anchor" href="#iem-edmdesigner-addon"><span class="octicon octicon-link"></span></a>IEM-EDMdesigner-Addon</h1>
+
+<p>An EDMdesigner addon for Interspire Email Marketer.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Download the addon</li>
+<li>Copy it into your IEM instance to the following folder: /admin/addons/edmdesigner</li>
+<li>Get access to our dashboard
+
+<ul>
+<li>Get your API key and the corressponding magic word. Please read the beggining of this <a href="http://edmdesigner.com/blog/edmdesigner-integration-tutorial-1-the-basics">article</a>.</li>
+</ul>
+</li>
+<li>Configure
+
+<ul>
+<li>In your IEM, go to Settings-&gt;Addons</li>
+<li>Click on Configure in EDMdesigner's row</li>
+<li>Enter the your API key and magic word</li>
+<li>Enter the preferred <a href="#supported-languages">language code</a>
+</li>
+<li>Select the closest <a href="#api-servers">API server</a> to your location
+
+<ul>
+<li>This is optional, you can leave <a href="http://api.edmdesigner.com">http://api.edmdesigner.com</a> there.</li>
+<li>You can use http and https as well</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>Attention! Your server must be reachable from our servers, otherwise uploading and removing images won't be able to work! If your IEM instance is behind a firewall, please add our servers on a whitelist on port 80.</p>
+
+<p>To find out the ip address of a domain, please enter the following in a terminal:</p>
+
+<ul>
+<li>Linux, mac: host HOSTNAME</li>
+<li>Windows: nslookup HOSTNAME
+
+<ul>
+<li>Check the Address field</li>
+</ul>
+</li>
+</ul>
+
+<p>Where HOSTNAME is the name of the API host where you connect with your addon.</p>
+
+<h2>
+<a name="api-servers" class="anchor" href="#api-servers"><span class="octicon octicon-link"></span></a>API servers:</h2>
+
+<p>These are the domain names of the API servers what you can use. You should pick the one which is closest to you.</p>
+
+<ul>
+<li>api.edmdesigner.com</li>
+<li>api-virginia.edmdesigner.com</li>
+<li>api-ireland.edmdesigner.com</li>
+<li>api-sydney.edmdesigner.com</li>
+</ul>
+
+<p>Note that api.edmdesigner.com and api-virginia.edmdesigner.com are identical.</p>
+
+<h2>
+<a name="supported-languages" class="anchor" href="#supported-languages"><span class="octicon octicon-link"></span></a>Supported Languages</h2>
+
+<p>There is a difference between the supported languages in our API (the editor itself) and the addon. If you would like to help us to create more localizations, please drop us an email. If you want to change the language of the addon, you have to overwrite the language.php file. In a later release, you won't have to do this.</p>
+
+<h3>
+<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h3>
+
+<ul>
+<li>English (Language code: en)</li>
+<li>Dutch (Language code: nl)</li>
+<li>Hungarian (Language code: hu)</li>
+<li>Italian (Language code: it)</li>
+<li>Romanian (Language code: ro)</li>
+<li>Russian (Language code: ru)</li>
+</ul>
+
+<h3>
+<a name="iem-edmdesigner-addon-1" class="anchor" href="#iem-edmdesigner-addon-1"><span class="octicon octicon-link"></span></a>IEM-EDMdesigner-Addon</h3>
+
+<ul>
+<li>English (Language code: en)</li>
+<li>Hungarian (Language code: hu)</li>
+</ul>
+
+<h2>
+<a name="known-bugs" class="anchor" href="#known-bugs"><span class="octicon octicon-link"></span></a>Known bugs</h2>
+
+<p>Please check out the issues part on GitHub. If you found a bug, please report that there.</p>
+
+<h2>
+<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<h3>
+<a name="v11" class="anchor" href="#v11"><span class="octicon octicon-link"></span></a>v1.1</h3>
+
+<ul>
+<li>Dynamic content - like in standard IEM</li>
+<li>Lots of bugfixes</li>
+<li>Lots of minor improvements</li>
+<li>More stable db connection</li>
+<li>More synchronized with IEM's database</li>
+</ul>
+
+<h3>
+<a name="v10---initial-version" class="anchor" href="#v10---initial-version"><span class="octicon octicon-link"></span></a>v1.0 - initial version</h3>
+
+<ul>
+<li>Built-in template management</li>
+<li>Custom template management</li>
+<li>Campaign management</li>
+<li>Drag 'n' Drop email template editor</li>
+<li>Previews on destop, tablet and smartphone</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">IEM-EDMdesigner-Addon maintained by <a href="https://github.com/EDMdesigner">EDMdesigner</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-47221564-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
