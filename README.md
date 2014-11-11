@@ -5,7 +5,7 @@ An EDMdesigner addon for Interspire Email Marketer.
 
 
 ## Installation
- * Download the addon
+ * Download the [latest release of the addon](https://github.com/EDMdesigner/IEM-EDMdesigner-Addon/releases)
  * Copy it into your IEM instance to the following folder: /admin/addons/edmdesigner
  * Get access to our dashboard
   * Get your API key and the corressponding magic word. Please read the beggining of this [article] (http://edmdesigner.com/blog/edmdesigner-integration-tutorial-1-the-basics).
@@ -53,22 +53,5 @@ There is a difference between the supported languages in our API (the editor its
  * English (Language code: en)
  * Hungarian (Language code: hu)
 
-## Known bugs
-Please check out the issues part on GitHub. If you found a bug, please report that there.
-
-
-## Changelog
-
-### v1.1
- * Dynamic content - like in standard IEM
- * Lots of bugfixes
- * Lots of minor improvements
- * More stable db connection
- * More synchronized with IEM's database
-
-### v1.0 - initial version
- * Built-in template management
- * Custom template management
- * Campaign management
- * Drag 'n' Drop email template editor
- * Previews on destop, tablet and smartphone
+## Releases and changelog
+Please check out our [releases on GitHub](https://github.com/EDMdesigner/IEM-EDMdesigner-Addon/releases).
