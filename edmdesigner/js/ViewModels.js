@@ -1328,7 +1328,12 @@ var initEDMdesignerViewModels = (function($, ko) {
 			if (subject() === "") {
 				subject(projectVM.title());
 			}
-			var textBody = ko.observable(projectVM.textBody());
+			var textBody = ko.observable("");
+
+			if (callbacks.init) {
+				callbacks.init(textBody);
+			}
+
 			var working = ko.observable(false);
 
 			loading(false);

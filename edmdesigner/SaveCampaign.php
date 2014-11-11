@@ -85,8 +85,8 @@ function insertCampaign() {
 		$db = getPDOConnection();
 
 		$queryString = "INSERT INTO " . SENDSTUDIO_TABLEPREFIX . "newsletters";
-		$queryString .= " (name, format, subject, textbody, htmlbody, createdate, ownerid)";
-		$queryString .= " VALUES (:name, 'b', :subject, :textBody, :htmlBody, :createdate, :ownerid)";
+		$queryString .= " (name, format, subject, textbody, htmlbody, createdate, active, archive, ownerid)";
+		$queryString .= " VALUES (:name, 'b', :subject, :textBody, :htmlBody, :createdate, 1, 1, :ownerid)";
 
 		$stmt = $db->prepare($queryString);
 
@@ -125,7 +125,6 @@ function updateCampaign() {
 	checkRequestField("id");
 	checkRequestField("name");
 	checkRequestField("subject");
-	checkRequestField("text_body");
 	checkRequestField("html_body");
 
 	try {
@@ -134,13 +133,8 @@ function updateCampaign() {
 		$queryString = "UPDATE " . SENDSTUDIO_TABLEPREFIX . "newsletters SET ";
 		$queryString .= "name = :name, ";
 		$queryString .= "subject = :subject, ";
-		$queryString .= "textbody = :textBody, ";
 		$queryString .= "htmlbody = :htmlBody ";
 		$queryString .= "WHERE newsletterid = :id";
-
-		/*echo "<pre>";
-
-		echo "</pre>";*/
 
 		$stmt = $db->prepare($queryString);
 
@@ -154,7 +148,6 @@ function updateCampaign() {
 		$stmt->bindParam(":id", $_REQUEST["id"], PDO::PARAM_INT);
 		$stmt->bindParam(":name", $_REQUEST["name"], PDO::PARAM_STR);
 		$stmt->bindParam(":subject", $_REQUEST["subject"], PDO::PARAM_STR);
-		$stmt->bindParam(":textBody", $_REQUEST["text_body"], PDO::PARAM_STR);
 		$stmt->bindParam(":htmlBody", $htmlBody, PDO::PARAM_STR);
 
 		if (!$stmt->execute()) {
@@ -240,7 +233,55 @@ function setCampaignArchivated($archive) {
 	}
 }
 
+function setTextBody() {
+	checkRequestField("id");
+	checkRequestField("textBody");
 
+	try {
+		$db = getPDOConnection();
+
+		$queryString = "UPDATE " . SENDSTUDIO_TABLEPREFIX . "newsletters SET ";
+		$queryString .= "textbody = :textBody ";
+		$queryString .= "WHERE newsletterid = :id";
+
+		$stmt = $db->prepare($queryString);
+
+		$stmt->bindParam(":id", $_REQUEST["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":textBody", $_REQUEST["textBody"], PDO::PARAM_STR);
+
+		if (!$stmt->execute()) {
+			printError("Db error.");
+		} else {
+			printSuccess();
+		}
+	} catch (PDOException $ex) {
+	    printError("Connection failed " . $ex->getMessage());
+	}
+}
+
+function getTextBody() {
+	checkRequestField("id");
+
+	try {
+		$db = getPDOConnection();
+
+		$queryString = "SELECT textbody FROM " . SENDSTUDIO_TABLEPREFIX . "newsletters WHERE newsletterid = :id";
+
+		$stmt = $db->prepare($queryString);
+
+		$stmt->bindParam(":id", $_REQUEST["id"], PDO::PARAM_INT);
+
+		if (!$stmt->execute()) {
+			printError("Db error.");
+		} else {
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			print($result["textbody"]);
+		}
+	} catch (PDOException $ex) {
+	    printError("Connection failed " . $ex->getMessage());
+	}
+}
 
 
 if (!isset($_REQUEST["action"])) {
@@ -261,6 +302,10 @@ if ($_REQUEST["action"] == "insert") {
 	setCampaignArchivated(1);
 } else if ($_REQUEST["action"] == "dearchivate") {
 	setCampaignArchivated(0);
+} else if ($_REQUEST["action"] == "getTextBody") {
+	getTextBody();
+} else if ($_REQUEST["action"] == "setTextBody") {
+	setTextBody();
 } else {
 	printError("Unknown action!");
 }

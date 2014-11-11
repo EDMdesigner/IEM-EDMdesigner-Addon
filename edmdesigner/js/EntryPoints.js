@@ -184,20 +184,12 @@ var edmDesignerEntryPoints = (function(ko) {
 					var id = project.customData.campaignId;
 					var name = project.title();
 					var subject = project.subject();
-					var textBody = project.textBody();
-
-					if(textBody === "") {
-						//textBody = generateTextBody(generatedHtml);
-						textBody = "default textBody";
-						project.textBody(textBody);
-					}
 
 					$.post(saveUrl, {
 						"action": "update",
 						"id": id,
 						"name": name,
 						"subject": subject,
-						"text_body": textBody,
 						"html_body": generatedHtml
 					}, function(result) {
 						if (typeof callback === "function") {
@@ -235,8 +227,7 @@ var edmDesignerEntryPoints = (function(ko) {
 
 				if (isCampaign) {
 					data.customData = {
-						subject: project.subject(),
-						textBody: project.textBody()
+						subject: project.subject()
 					};
 				}
 
@@ -386,16 +377,44 @@ var edmDesignerEntryPoints = (function(ko) {
 			function editCampaignInfo(project, generatedHtml) {
 				clearPages();
 
-				if (project.textBody() === "" || project.textBody() === "default textBody") {
-					if (generatedHtml) {
-						project.textBody(generateTextBody(generatedHtml));
-					}
-				}
-
 				pages.campaignInfo(edmvms.subjectAndTextBodyVM(project, {
+					init: function(textBody) {
+						$.get(saveUrl, {
+							"action": "getTextBody",
+							"id": project.customData.campaignId,
+							"user_id": interSpireUserId
+						}, function(result) {
+							if (result === "" || result === "default textBody" || result === "textBody") {
+								if (generatedHtml) {
+									return textBody(generateTextBody(generatedHtml));
+								}
+							}
+
+							textBody(result);
+						});
+					},
 					save: function() {
 						updateCampaignInfo(project, function() {
-							updateProjectList();
+							$.post(saveUrl, {
+								"action": "setTextBody",
+								"textBody": project.textBody,
+								"id": project.customData.campaignId,
+								"user_id": interSpireUserId
+							}, function(result) {
+								if (typeof result === "string") {
+									try {
+										result = JSON.parse(result);
+									} catch (e) {
+										result = {};
+									}
+								}
+
+								if (!result.success) {
+									console.log("Saving to localdb unsuccessful!");
+								}
+
+								updateProjectList();
+							});
 						});
 					},
 					cancel: function() {
