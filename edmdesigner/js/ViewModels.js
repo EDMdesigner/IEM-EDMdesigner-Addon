@@ -1249,7 +1249,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 
 				if (!selTemplate) {
-					actArray = userTemplates
+					actArray = userTemplates();
 					for (var idx = 0; idx < actArray.length; idx += 1) {
 						var act = actArray[idx];
 						if (act._id === selectedId) {
