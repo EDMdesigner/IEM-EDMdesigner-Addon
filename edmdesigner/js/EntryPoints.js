@@ -37,7 +37,8 @@ var edmDesignerEntryPoints = (function(ko) {
 			campaignMode: campaignMode
 		});
 
-		initEDMdesignerPlugin(userId, function(edmPlugin) {
+		//tokenUrl should be a global printed by template_manager.tpl
+		initEDMdesignerPlugin(tokenUrl, userId, function(edmPlugin) {
 			var edmvms = initEDMdesignerViewModels(edmPlugin, fromEmail, i18n, langCode, loading, campaignMode);
 
 			/*
@@ -622,6 +623,8 @@ var edmDesignerEntryPoints = (function(ko) {
 			}
 
 			updateProjectList();
+		}, function(error) {
+			console.log(error);
 		});
 
 		

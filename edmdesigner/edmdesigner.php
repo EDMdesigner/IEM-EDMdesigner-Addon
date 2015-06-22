@@ -30,7 +30,8 @@ require_once(dirname(__FILE__) . "/utils.php");
  */
 class Addons_edmdesigner extends Interspire_Addons
 {
-	private $apiBaseUrl = "https://api.edmdesigner.com";
+	private $apiUrls = null;
+	private $apiBaseUrl = "https://api-a.edmdesigner.com";
 	//private $apiBaseUrl = "localhost:3001";
 	private $version = "1.0.0";
 
@@ -161,7 +162,7 @@ class Addons_edmdesigner extends Interspire_Addons
 				"ts"	=> $timestamp,
 				"hash"	=> $hash
 		);
-		$tokenResult = json_decode(sendPostRequest($getTokenUrl, $data), true);
+		$tokenResult = json_decode(sendPostRequest("/api/token", $data), true);
 
 		return $tokenResult;
 	}
@@ -174,64 +175,12 @@ class Addons_edmdesigner extends Interspire_Addons
 		return $this->_createAdminToken($apiBaseUrl, $publicId, $magic);
 	}
 
-	/*
-	private function configGallery($publicId, $magic) {
-		$adminToken = $this->_createAdminToken($publicId, $magic);
-		$adminToken = $adminToken["token"];
-
-		$addonBaseDirectory = substr($this->template_url, 0, -11);
-
-		$galleryConfig = array(
-        	"uploadRoute" => $addonBaseDirectory . "/UploadImage.php",
-        	"deleteRoute" => $addonBaseDirectory . "/DeleteImage.php"
-        );
-
-        return sendPostRequest($this->apiBaseUrl . "/json/gallery/config?token=" . $adminToken . "&user=admin", $galleryConfig);
-	}
-
-	private function configureCustomStrings($publicId, $magic) {
-		$adminToken = $this->_createAdminToken($publicId, $magic);
-		$adminToken = $adminToken["token"];
-
-		$customStrings = array(
-			"id" => "mailCampCustomStrings",
-			"title" => "Custom strings",
-			"items" => array()
-		);
-
-		$customStrings["items"][] = array(
-			"label" => "Insert unsubscribe link2",
-			"replacer" => "<a href=\"%%unsubscribelink%%\" target=\"_blank\">Unsubscribe me from this list2</a>"
-		);
-		$customStrings["items"][] =  array(
-			"label" => "testLabel",
-			"replacer" => "testReplacer"
-		);
-
-
-		$db = IEM::getDatabase();
-		if (!$db) {
-			
-		}
-
-		$customFields = $db->Query("SELECT * FROM [|PREFIX|]customfields");
-
-		while ($row = $db->Fetch($customFields)) {
-            //print_r($row);
-            //print "<br>";
-        }
-
-		$url = $this->apiBaseUrl . "/json/customStrings/add?token=" . $adminToken . "&user=admin";
-		return sendPostRequest($url , $customStrings);
-	}
-	*/
-
 	//*
 	private function registerUserToEDMdesigner($edmdUsername) {
 		$adminToken = $this->createAdminToken();
 		$adminToken = $adminToken["token"];
 
-		$createUserUrl = $this->apiBaseUrl . "/json/user/create?token=" . $adminToken . "&user=admin";
+		$createUserUrl = "/json/user/create?token=" . $adminToken . "&user=admin";
 
 
 		$user = GetUser();
@@ -327,6 +276,7 @@ class Addons_edmdesigner extends Interspire_Addons
 
 		$this->apiBaseUrl = $settings["EDMdesignerHost"];
 
+
 		$adminToken = $this->_createAdminToken($settings["EDMdesignerHost"], $settings["EDMdesignerApiKey"], $settings["EDMdesignerMagic"]);
 		$adminToken = $adminToken["token"];
 
@@ -338,7 +288,7 @@ class Addons_edmdesigner extends Interspire_Addons
         	"deleteRoute" => $addonBaseDirectory . "/DeleteImage.php"
         );
 
-        sendPostRequest($this->apiBaseUrl . "/json/gallery/config?token=" . $adminToken . "&user=admin", $galleryConfig);
+        sendPostRequest("/json/gallery/config?token=" . $adminToken . "&user=admin", $galleryConfig);
 
         //configure dynamic content
         $postData = array(
@@ -352,9 +302,7 @@ class Addons_edmdesigner extends Interspire_Addons
         	)
         );
 
-        sendPostRequest($this->apiBaseUrl . "/json_v" . $this->version . "/apiKey/" . $settings["EDMdesignerApiKey"] . "/customStringButtons?user=admin&token=" . $adminToken, $postData);
-
-        //sendPostRequest("https://api-test.edmdesigner.com/json_v" . $version . "/apiKey/" . $settings["EDMdesignerApiKey"] . "/customStringButtons?user=admin&token=" . $adminToken, $postData);
+        sendPostRequest("/json_v" . $this->version . "/apiKey/" . $settings["EDMdesignerApiKey"] . "/customStringButtons?user=admin&token=" . $adminToken, $postData);
 
 		return self::SetSettings($settings);
 	}
@@ -665,5 +613,17 @@ class Addons_edmdesigner extends Interspire_Addons
 		$result = file_get_contents($url, false, $context);
 
 		print($result);
+	}
+
+	public function Admin_Action_Test() {
+		echo ini_get("allow_url_fopen");
+
+		ini_set("allow_url_fopen", 1);
+
+		echo ini_get("allow_url_fopen");
+
+		echo "\nPHP version: \n";
+
+		echo phpversion();
 	}
 }

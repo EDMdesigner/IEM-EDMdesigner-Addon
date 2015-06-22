@@ -8,7 +8,10 @@ if(typeof jQuery === 'undefined'){
 </script>-->
 <script src="{$AddonBaseDirectory}/js/knockout-min.js"></script>
 
-<script src="{$EDMdesignerApiBaseUrl}/EDMdesignerAPI.js?route={$TokenUrl}"></script>
+<script src="https://api-static.edmdesigner.com/EDMdesignerAPI.js"></script>
+<script>
+	var tokenUrl = decodeURIComponent("{$TokenUrl}"); //this variable is used when initEDMdesignerPlugin is called in EntryPoints.js
+</script>
 
 <script src="{$AddonBaseDirectory}/js/knockoutPaginationVM.js"></script>
 <script src="{$AddonBaseDirectory}/js/ViewModels.js"></script>

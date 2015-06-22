@@ -1,7 +1,24 @@
 <?php
 require_once dirname(__FILE__) . "/../../includes/config.php";
 
+//ini_set("allow_url_fopen", true);
+
+error_reporting(E_ALL);
+
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+
+
+
 function sendPostRequest($url, $data) {
+    static $apis = array(
+        "https://api-a.edmdesigner.com",
+        "https://api-b.edmdesigner.com",
+        "https://api-c.edmdesigner.com"
+    );
+
+    static $activeApiIdx = 0;
+
 	$options = array(
 	    "http" => array(
 	        "header"  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -10,21 +27,26 @@ function sendPostRequest($url, $data) {
 	    )
 	);
 
+    $route = $apis[$activeApiIdx] . $url;
+
 	$context  = stream_context_create($options);
-	$result = file_get_contents($url, false, $context);
+	$result = file_get_contents($route, false, $context);
 	$response = parse_http_response_header($http_response_header);
 
 	$statusCode = $response[0]["status"]["code"];
 
+
 	if($statusCode === 200) {
 		return $result;
+	} else if ($activeApiIdx < count($apis)) {
+        $activeApiIdx++;
+        return sendPostRequest($url, $data);	
 	} else {
-		die(print($statusCode));			
-	}
+        die(print($statusCode));
+    }
 }
 
-function parse_http_response_header(array $headers)
-{
+function parse_http_response_header(array $headers) {
     $responses = array();
     $buffer = NULL;
     foreach ($headers as $header)
