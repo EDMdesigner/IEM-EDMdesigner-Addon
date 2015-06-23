@@ -738,7 +738,8 @@ height: 5px;
 							<!-- ko if: save.allowed -->
 							<button class="SmallButton" data-bind="click: save, text: l10n.save"></button>
 							<!-- /ko -->
-							<button class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton">
+							<button class="SmallButton" data-bind="click: regenerateTextVersion, text: l10n.regenerateTextVersionButton"></button>
+							<button class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton"></button>
 							<button class="SmallButton" data-bind="click: cancel, text: l10n.cancel"></button>
 						</div>
 						<!-- /ko -->
@@ -978,6 +979,8 @@ height: 5px;
 
 			close: "{$lang.Addon_edmdesigner_subjectAndTextVM_Close}",
 			checkSpamButton: "{$lang.Addon_edmdesigner_subjectAndTextVM_CheckSpamButton}",
+
+			regenerateTextVersionButton: "{$lang.Addon_edmdesigner_subjectAndTextVM_RegenerateTextVersionButton}",
 
 			save: "{$lang.Addon_edmdesigner_subjectAndTextVM_Save}",
 			cancel: "{$lang.Addon_edmdesigner_subjectAndTextVM_Cancel}",

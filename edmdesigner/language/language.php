@@ -164,6 +164,7 @@ define("LNG_Addon_edmdesigner_subjectAndTextVM_CancelMessage", "Are you sure you
 
 define("LNG_Addon_edmdesigner_subjectAndTextVM_Close", "Close");
 define("LNG_Addon_edmdesigner_subjectAndTextVM_CheckSpamButton", "Check your email for spam");
+define("LNG_Addon_edmdesigner_subjectAndTextVM_RegenerateTextVersionButton", "Regenerate text version");
 
 
 

@@ -423,7 +423,10 @@ var edmDesignerEntryPoints = (function(ko) {
 							updateProjectList();
 						}
 					},
-					checkSpam: checkSpam(project._id)
+					checkSpam: checkSpam(project._id),
+					regenerateTextVersion: function() {
+						return generateTextBody(generatedHtml);
+					}
 				}));
 			}
 

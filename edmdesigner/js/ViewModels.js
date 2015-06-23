@@ -1347,6 +1347,8 @@ var initEDMdesignerViewModels = (function($, ko) {
 				close: "Close",
 				checkSpamButton: "Check for spam",
 
+				regenerateTextVersionButton: "Regenerate text version",
+
 				save: "Save",
 				cancel: "Cancel",
 				cancelConfirmMessage: "Are you sure? Your unsaved data will be lost"
@@ -1387,6 +1389,10 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 			}
 
+			function regenerateTextVersion() {
+				textBody(callbacks.regenerateTextVersion())
+			}
+
 			return {
 				l10n: l10n,
 
@@ -1397,6 +1403,8 @@ var initEDMdesignerViewModels = (function($, ko) {
 				htmlResult: htmlResult,
 
 				working: working,
+
+				regenerateTextVersion: regenerateTextVersion,
 
 				save: save,
 				cancel: cancel

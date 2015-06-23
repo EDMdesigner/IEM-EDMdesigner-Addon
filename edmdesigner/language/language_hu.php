@@ -165,6 +165,7 @@ define("LNG_Addon_edmdesigner_subjectAndTextVM_CancelMessage", "Biztos benne, ho
 
 define("LNG_Addon_edmdesigner_subjectAndTextVM_Close", "Bezár");
 define("LNG_Addon_edmdesigner_subjectAndTextVM_CheckSpamButton", "Spam pontszám ellenőrzése");
+define("LNG_Addon_edmdesigner_subjectAndTextVM_RegenerateTextVersionButton", "Szöveges verzió újragenerálása");
 
 
 
