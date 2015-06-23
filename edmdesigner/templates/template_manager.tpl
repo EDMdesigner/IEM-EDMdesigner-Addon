@@ -275,7 +275,9 @@ height: 5px;
 			<button style="float:right;" class="SmallButton" data-bind="click: close, text: l10n.close"></button>
 			<button style="float:right;" class="SmallButton" data-bind="click: templateExport, text: l10n.exportButton"></button>
 			<button style="float:right;" class="SmallButton" data-bind="click: changeToSendEmailMode, text: l10n.sendTestEmail"></button>
+			<!-- ko if: addonConfig.spamCheck -->
 			<button style="float:right;" class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton"></button>
+			<!-- /ko -->
 
 			<div style="clear:both;"></div>
 
@@ -739,7 +741,10 @@ height: 5px;
 							<button class="SmallButton" data-bind="click: save, text: l10n.save"></button>
 							<!-- /ko -->
 							<button class="SmallButton" data-bind="click: regenerateTextVersion, text: l10n.regenerateTextVersionButton"></button>
+
+							<!-- ko if: addonConfig.spamCheck -->
 							<button class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton"></button>
+							<!-- /ko -->
 							<button class="SmallButton" data-bind="click: cancel, text: l10n.cancel"></button>
 						</div>
 						<!-- /ko -->
@@ -986,6 +991,10 @@ height: 5px;
 			cancel: "{$lang.Addon_edmdesigner_subjectAndTextVM_Cancel}",
 			cancelConfirmMessage: "{$lang.Addon_edmdesigner_subjectAndTextVM_CancelMessage}"
 		}
+	};
+
+	var addonConfig = {
+		spamCheck: "{$EDMdesignerSpamCheck}" === "true"
 	};
 
 	var urls = {

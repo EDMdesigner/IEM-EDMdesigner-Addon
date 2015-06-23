@@ -187,6 +187,7 @@ define("LNG_Addon_edmdesigner_apiKey", "API Key");
 define("LNG_Addon_edmdesigner_magic", "Magic");
 define("LNG_Addon_edmdesigner_languageCode", "Editor's language code");
 define("LNG_Addon_edmdesigner_host", "Host");
+define("LNG_Addon_edmdesigner_spamCheck", "Spam check");
 define("LNG_Addon_edmdesigner_hostError", "Host should start with http:// or https://");
 
 define('LNG_Addon_edmdesigner_Menu_Text', 'Manage built-in responsive templates');
