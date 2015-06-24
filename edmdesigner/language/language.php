@@ -82,6 +82,7 @@ define("LNG_Addon_edmdesigner_editorVM_Title-BuiltInTemplate", "Built-in templat
 define("LNG_Addon_edmdesigner_editorVM_Title-Campaign", "Campaign title: ");
 
 define("LNG_Addon_edmdesigner_editorVM_Preview", "Preview");
+define("LNG_Addon_edmdesigner_editorVM_LightBox", "Lightbox");
 define("LNG_Addon_edmdesigner_editorVM_Save", "Save");
 define("LNG_Addon_edmdesigner_editorVM_Close", "Close");
 define("LNG_Addon_edmdesigner_editorVM_SaveAndClose", "Save and close");

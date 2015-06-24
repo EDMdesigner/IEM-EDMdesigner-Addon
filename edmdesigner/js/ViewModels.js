@@ -563,7 +563,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 
 			function listenForLoaded(event) {
 				console.log(event);
-				
+
 				if (event.data === "ProjectLoadingSuccess") {
 					loaded(true);
 					save();
@@ -607,6 +607,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 			var l10n = {
 				title: "Edit template",
 				preview: "Preview",
+				lightBox: "Lightbox",
 				save: "Save",
 				close: "Close",
 				saveAndClose: "Save and close",
@@ -750,6 +751,15 @@ var initEDMdesignerViewModels = (function($, ko) {
 				loading(false);
 			});
 
+
+			function openLightBox() {
+				$("#EDMdesigner-editor-wrapper").addClass("lightBoxWrapper");
+			}
+
+			function closeLightBox() {
+				$("#EDMdesigner-editor-wrapper").removeClass("lightBoxWrapper");
+			}
+
 			return {
 				l10n: l10n,
 
@@ -762,6 +772,9 @@ var initEDMdesignerViewModels = (function($, ko) {
 				src: src,
 
 				saveInProgress: saveInProgress,
+
+				openLightBox: openLightBox,
+				closeLightBox: closeLightBox,
 
 				save: save,
 				close: close,

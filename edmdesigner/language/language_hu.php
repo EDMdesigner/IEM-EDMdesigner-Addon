@@ -82,6 +82,7 @@ define("LNG_Addon_edmdesigner_editorVM_Title-BuiltInTemplate", "Beépített sabl
 define("LNG_Addon_edmdesigner_editorVM_Title-Campaign", "Kampány címe: ");
 
 define("LNG_Addon_edmdesigner_editorVM_Preview", "Előnézet");
+define("LNG_Addon_edmdesigner_editorVM_LightBox", "Lightbox");
 define("LNG_Addon_edmdesigner_editorVM_Save", "Mentés");
 define("LNG_Addon_edmdesigner_editorVM_Close", "Bezárás");
 define("LNG_Addon_edmdesigner_editorVM_SaveAndClose", "Mentés és bezárás");

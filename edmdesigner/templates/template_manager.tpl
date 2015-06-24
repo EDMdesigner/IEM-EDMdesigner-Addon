@@ -262,6 +262,19 @@ border: 1px solid gray;
 height: 5px;
 }
 
+.lightBoxWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 10, 10, 0.8);
+}
+
+.lightBoxWrapper iframe {
+	height: 100%;
+}
+
 </style>
 
 <!-- ko if: loading -->
@@ -590,6 +603,8 @@ height: 5px;
 						<div style="float:right;">
 							<!-- ko if: loaded -->
 								<!-- ko ifnot: saveInProgress -->
+									<button data-bind="click: openLightBox, text: l10n.lightBox"></button>
+									
 									<button class="SmallButton" data-bind="click: save, text: l10n.save"></button>
 
 									<!-- ko if: $root.campaignMode -->
@@ -611,7 +626,7 @@ height: 5px;
 							<!-- /ko -->
 						</div>
 						<div style="clear:both;"></div>
-						<div>
+						<div id="EDMdesigner-editor-wrapper" data-bind="click: closeLightBox">
 							<iframe id="EDMdesigner-editor" style="border-width: 0;margin: 0 auto;min-width: 996px;display:block;" data-bind="attr: {src: src, width: width, height: height}"></iframe>
 						</div>
 							<!--<div>
@@ -880,6 +895,7 @@ height: 5px;
 				return "{$lang.Addon_edmdesigner_editorVM_Title-Template}";
 			}()),
 			preview: "{$lang.Addon_edmdesigner_editorVM_Preview}",
+			lightBox: "{$lang.Addon_edmdesigner_editorVM_LightBox}",
 
 			save: "{$lang.Addon_edmdesigner_editorVM_Save}",
 			close: "{$lang.Addon_edmdesigner_editorVM_Close}",
