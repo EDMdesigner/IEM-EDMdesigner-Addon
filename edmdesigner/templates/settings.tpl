@@ -29,14 +29,6 @@
             </tr>
             <tr>
                 <td class="FieldLabel" style="width:140px;">
-                	{$lang.Addon_edmdesigner_host}
-                </td>
-                <td>
-                    <input id="EDMdesignerHostInput" type="text" name="EDMdesignerHost" value="{$EDMdesignerHost}" />
-                </td>
-            </tr>
-            <tr>
-                <td class="FieldLabel" style="width:140px;">
                     {$lang.Addon_edmdesigner_spamCheck}
                 </td>
                 <td>

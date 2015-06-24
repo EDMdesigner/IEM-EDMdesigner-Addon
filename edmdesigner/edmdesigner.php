@@ -31,8 +31,6 @@ require_once(dirname(__FILE__) . "/utils.php");
 class Addons_edmdesigner extends Interspire_Addons
 {
 	private $apiUrls = null;
-	private $apiBaseUrl = "https://api-a.edmdesigner.com";
-	//private $apiBaseUrl = "localhost:3001";
 	private $version = "1.0.0";
 
 	private $userId = null;
@@ -147,10 +145,7 @@ class Addons_edmdesigner extends Interspire_Addons
 
 	//*
 
-	private function _createAdminToken($apiBaseUrl, $publicId, $magic) {
-
-		$getTokenUrl = $apiBaseUrl . "/api/token";
-
+	private function _createAdminToken($publicId, $magic) {
 		// handshake
 		$ip = $_SERVER["REMOTE_ADDR"];
 		$timestamp = time();
@@ -168,11 +163,10 @@ class Addons_edmdesigner extends Interspire_Addons
 	}
 
 	private function createAdminToken() {
-		$apiBaseUrl = $this->settings["EDMdesignerHost"];
 		$publicId = $this->settings["EDMdesignerApiKey"];
 		$magic = $this->settings["EDMdesignerMagic"];
 
-		return $this->_createAdminToken($apiBaseUrl, $publicId, $magic);
+		return $this->_createAdminToken($publicId, $magic);
 	}
 
 	//*
@@ -237,9 +231,6 @@ class Addons_edmdesigner extends Interspire_Addons
         $this->edmdSettings = $settings;
 
 		//$this->registerActUserIfNeeded();
-		if(strcmp($settings["EDMdesignerHost"], "") !== 0) {
-			$this->apiBaseUrl = $settings["EDMdesignerHost"];
-		}
 
 		foreach ($this->settings as $k => $v) {
 			$this->template_system->Assign($k, $v);
@@ -270,7 +261,6 @@ class Addons_edmdesigner extends Interspire_Addons
         $settings["EDMdesignerApiKey"] = $_POST["EDMdesignerApiKey"];
         $settings["EDMdesignerMagic"] = $_POST["EDMdesignerMagic"];
         $settings["EDMdesignerLang"] = $_POST["EDMdesignerLang"];
-        $settings["EDMdesignerHost"] = $_POST["EDMdesignerHost"];
         $settings["EDMdesignerSpamCheck"] = $_POST["EDMdesignerSpamCheck"];
         $settings["EDMdesignerAutoSave"] = $_POST["EDMdesignerAutoSave"];
 
@@ -279,10 +269,8 @@ class Addons_edmdesigner extends Interspire_Addons
 			return false;
 		}
 
-		$this->apiBaseUrl = $settings["EDMdesignerHost"];
 
-
-		$adminToken = $this->_createAdminToken($settings["EDMdesignerHost"], $settings["EDMdesignerApiKey"], $settings["EDMdesignerMagic"]);
+		$adminToken = $this->_createAdminToken($settings["EDMdesignerApiKey"], $settings["EDMdesignerMagic"]);
 		$adminToken = $adminToken["token"];
 
 		//configure gallery
@@ -450,8 +438,6 @@ class Addons_edmdesigner extends Interspire_Addons
 		$flashMessages = GetFlashMessages();
 		$userId = $this->userId;
 
-		$this->apiBaseUrl = $this->settings["EDMdesignerHost"];
-
 
 		$this->registerUserToEDMdesigner($userId);
 
@@ -477,7 +463,6 @@ class Addons_edmdesigner extends Interspire_Addons
 		$this->template_system->Assign("URL", $this->url, false);
 
 
-		$this->template_system->Assign("EDMdesignerApiBaseUrl", $this->apiBaseUrl, false);
 		$this->template_system->Assign("TokenUrl", urlencode($this->admin_url . "&Action=Token&Ajax=true"));
 
 		$this->template_system->Assign("UserId", $userId, false);
@@ -580,12 +565,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	public function Admin_Action_Token() {
 		header("Content-type: application/json;charset=utf-8");
 
-
 		$this->checkUserId();
-
-		if(strcmp($this->settings["EDMdesignerHost"],"") !== 0) {
-			$this->apiBaseUrl = $this->settings["EDMdesignerHost"];
-		}
 
 		$settings = getApiKeyAndMagic();
 
@@ -597,8 +577,6 @@ class Addons_edmdesigner extends Interspire_Addons
 
 		$hash = md5($publicId . $ip . $timestamp . $magic);
 
-		$url = $this->apiBaseUrl . "/api/token";
-
 		$data = array(
 					"id"	=> $publicId,
 					"uid"	=> $_REQUEST["userId"],
@@ -607,19 +585,9 @@ class Addons_edmdesigner extends Interspire_Addons
 					"hash"	=> $hash
 		);
 
-		// use key 'http' even if you send the request to https://...
-		$options = array(
-		    "http" => array(
-		        "header"  => "Content-type: application/x-www-form-urlencoded\r\n",
-		        "method"  => "POST",
-		        "content" => http_build_query($data),
-		    )
-		);
+		$tokenResult = sendPostRequest("/api/token", $data);
 
-		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-
-		print($result);
+		print($tokenResult);
 	}
 
 	public function Admin_Action_Test() {
