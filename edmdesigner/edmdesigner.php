@@ -253,6 +253,7 @@ class Addons_edmdesigner extends Interspire_Addons
         $this->template_system->Assign("EDMdesignerLang", $settings["EDMdesignerLang"]);
         $this->template_system->Assign("EDMdesignerHost", $settings["EDMdesignerHost"]);
         $this->template_system->Assign("EDMdesignerSpamCheck", $settings["EDMdesignerSpamCheck"]);
+        $this->template_system->Assign("EDMdesignerAutoSave", $settings["EDMdesignerAutoSave"]);
 
         $this->template_system->Assign("userId", $this->application_url . " - " . $this->userId);
 
@@ -271,6 +272,7 @@ class Addons_edmdesigner extends Interspire_Addons
         $settings["EDMdesignerLang"] = $_POST["EDMdesignerLang"];
         $settings["EDMdesignerHost"] = $_POST["EDMdesignerHost"];
         $settings["EDMdesignerSpamCheck"] = $_POST["EDMdesignerSpamCheck"];
+        $settings["EDMdesignerAutoSave"] = $_POST["EDMdesignerAutoSave"];
 
 
 		if (empty($settings)) {
@@ -485,6 +487,7 @@ class Addons_edmdesigner extends Interspire_Addons
 		$this->template_system->Assign("CampaignMode", $campaignMode, false);
 		$this->template_system->Assign("LangCode", $settings["EDMdesignerLang"], false);
 		$this->template_system->Assign("EDMdesignerSpamCheck", $settings["EDMdesignerSpamCheck"], false);
+		$this->template_system->Assign("EDMdesignerAutoSave", $settings["EDMdesignerAutoSave"], false);
 
 		$this->template_system->ParseTemplate($templateName);
 	}

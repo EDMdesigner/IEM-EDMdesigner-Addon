@@ -994,7 +994,8 @@ height: 5px;
 	};
 
 	var addonConfig = {
-		spamCheck: "{$EDMdesignerSpamCheck}" === "true"
+		spamCheck: "{$EDMdesignerSpamCheck}" === "true",
+		autoSave: "{$EDMdesignerAutoSave}" === "true"
 	};
 
 	var urls = {

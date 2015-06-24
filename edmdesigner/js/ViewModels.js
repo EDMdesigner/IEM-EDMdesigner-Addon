@@ -563,6 +563,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 
 			function listenForLoaded(event) {
 				console.log(event);
+				
 				if (event.data === "ProjectLoadingSuccess") {
 					loaded(true);
 					save();
@@ -645,17 +646,8 @@ var initEDMdesignerViewModels = (function($, ko) {
 				var win = iframe[0].contentWindow;
 				var iframeSrc = iframe.attr("src");
 				var host = location.protocol + iframeSrc.split("?")[0];
-				win.postMessage("saveProject", host);
 
 				saveInProgress(true);
-
-				//*
-				if (window.addEventListener){
-					addEventListener("message", savingResult, false);
-				} else {
-					attachEvent("onmessage", savingResult);
-				}
-				//*/
 
 				function savingResult(event) {
 					var origin = location.protocol + iframeSrc.split("?")[0];
@@ -669,8 +661,10 @@ var initEDMdesignerViewModels = (function($, ko) {
 					console.log(event.data);
 					if(event.data === "Save result: success") {
 						console.log("Save success...");
-					} else {
+					} else if (event.data === "Save result: failed") {
 						console.log("Save failed...");
+					} else {
+						return;
 					}
 					saveInProgress(false);
 
@@ -685,6 +679,16 @@ var initEDMdesignerViewModels = (function($, ko) {
 						detachEvent("onmessage", savingResult);
 					}
 				}
+
+				//*
+				if (window.addEventListener){
+					addEventListener("message", savingResult, false);
+				} else {
+					attachEvent("onmessage", savingResult);
+				}
+				//*/
+
+				win.postMessage("saveProjectNoDeselect", host);
 				//$(window).on("message", savingResult);
 			}
 
@@ -698,6 +702,27 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 
 				saveDoc(callbacks.save);
+			}
+
+			if (addonConfig.autoSave) {
+				var timeoutId;
+				window.addEventListener("message", function(event) {
+					if (event.data === "JsonChanged") {
+						if (timeoutId) {
+							clearTimeout(timeoutId);
+						}
+
+						console.log("Autosaving in 5s.");
+
+						timeoutId = setTimeout(function() {
+							var iframe = $(iframeId);
+							if (iframe.length > 0) {
+								save();
+								timoutId = null;
+							}
+						}, 5000);
+					}
+				});
 			}
 
 			function close() {
@@ -721,7 +746,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 			}
 
 			edmPlugin.openProject(projectVM._id, langCode, {autosave: 0}, function(result) {
-				src(result.url);
+				src(result.url + "&consoleLog=on");
 				loading(false);
 			});
 

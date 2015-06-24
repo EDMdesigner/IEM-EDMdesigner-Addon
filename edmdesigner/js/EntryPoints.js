@@ -255,7 +255,7 @@ var edmDesignerEntryPoints = (function(ko) {
 					save: function() {
 						if (campaignMode) {
 							updateCampaignInterspire(project, function(result) {
-								console.log("Interspire save ok?");
+								console.log("Interspire save ok.");
 							});
 							updateCampaignInfo(project);
 						}

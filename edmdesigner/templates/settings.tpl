@@ -43,6 +43,14 @@
                     <input id="EDMdesignerSpamCheck" type="checkbox" name="EDMdesignerSpamCheck" value="true" />
                 </td>
             </tr>
+            <tr>
+                <td class="FieldLabel" style="width:140px;">
+                    {$lang.Addon_edmdesigner_autoSave}
+                </td>
+                <td>
+                    <input id="EDMdesignerAutoSave" type="checkbox" name="EDMdesignerAutoSave" value="true" />
+                </td>
+            </tr>
 			<tr>
 				<td class="FieldLabel" style="width:140px;">&nbsp;</td>
 				<td>
@@ -55,9 +63,12 @@
 	</form>
 
     <script>
-        var checkSpam = "{$EDMdesignerSpamCheck}";
-        if (checkSpam === "true") {
+        if ("{$EDMdesignerSpamCheck}" === "true") {
             $("#EDMdesignerSpamCheck").attr("checked", "checked");
+        }
+
+        if ("{$EDMdesignerAutoSave}" === "true") {
+            $("#EDMdesignerAutoSave").attr("checked", "checked");
         }
 
         if ($("#EDMdesignerHostInput").val() === "") {
