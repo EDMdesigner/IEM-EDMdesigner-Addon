@@ -615,7 +615,7 @@ height: 5px;
 						<div style="float:right;">
 							<!-- ko if: loaded -->
 								<!-- ko ifnot: saveInProgress -->
-									<button data-bind="click: openLightBox, text: l10n.lightBox"></button>
+									<button class="SmallButton" data-bind="click: openLightBox, text: l10n.lightBox"></button>
 									
 									<button class="SmallButton" data-bind="click: save, text: l10n.save"></button>
 
