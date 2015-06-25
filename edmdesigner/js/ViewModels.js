@@ -747,7 +747,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 			}
 
 			edmPlugin.openProject(projectVM._id, langCode, {autosave: 0}, function(result) {
-				src(result.url + "&consoleLog=on");
+				src(result.url + "&consoleLog=on&imageMaxWidth=" + addonConfig.imageMaxWidth);
 				loading(false);
 			});
 

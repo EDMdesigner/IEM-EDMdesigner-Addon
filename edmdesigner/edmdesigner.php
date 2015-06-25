@@ -473,6 +473,7 @@ class Addons_edmdesigner extends Interspire_Addons
 		$this->template_system->Assign("LangCode", $settings["EDMdesignerLang"], false);
 		$this->template_system->Assign("EDMdesignerSpamCheck", $settings["EDMdesignerSpamCheck"], false);
 		$this->template_system->Assign("EDMdesignerAutoSave", $settings["EDMdesignerAutoSave"], false);
+		$this->template_system->Assign("ImageMaxWidth", SENDSTUDIO_MAX_IMAGEWIDTH, false);
 
 		$this->template_system->ParseTemplate($templateName);
 	}

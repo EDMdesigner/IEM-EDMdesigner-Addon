@@ -275,6 +275,18 @@ height: 5px;
 	height: 100%;
 }
 
+.lightBoxWrapper:after {
+	content: 'x';
+	cursor: pointer;
+	position: absolute;
+	width: 20px;
+	height:20px;
+	top:20px;
+	right:20px;
+	color:#dddddd;
+	font-size:18px;
+}
+
 </style>
 
 <!-- ko if: loading -->
@@ -1011,7 +1023,8 @@ height: 5px;
 
 	var addonConfig = {
 		spamCheck: "{$EDMdesignerSpamCheck}" === "true",
-		autoSave: "{$EDMdesignerAutoSave}" === "true"
+		autoSave: "{$EDMdesignerAutoSave}" === "true",
+		imageMaxWidth: "{$ImageMaxWidth}"
 	};
 
 	var urls = {
