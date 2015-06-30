@@ -1,0 +1,266 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	min-width: 1090px;
+}
+
+.itemSelected {
+	background: #abcdef;
+}
+
+.list-item {
+	cursor: pointer;
+}
+
+.list-item:hover {
+	background: #eeeeee;
+}
+
+.preview-iframe {
+	display:block;
+	margin: 0 auto 10px;
+
+	border: 1px solid #010101 !important;
+}
+
+.preview-iframe.preview-mobile{
+	width: 326px;
+	height: 581px; /* 568 */
+
+	-ms-transform: scale(0.7);
+	-ms-transform-origin: 50% 0%;
+	-moz-transform: scale(0.7);
+	-moz-transform-origin: 50% 0%;
+	-o-transform: scale(0.7);
+	-o-transform-origin: 50% 0%;
+	-webkit-transform: scale(0.7);
+	-webkit-transform-origin: 50% 0%;
+
+	margin-bottom: -50px;
+}
+
+.preview-iframe.preview-tablet {
+	width:723px;
+	height:967px;
+
+	-ms-transform: scale(0.6);
+	-ms-transform-origin: 50% 0%;
+	-moz-transform: scale(0.6);
+	-moz-transform-origin: 50% 0%;
+	-o-transform: scale(0.6);
+	-o-transform-origin: 50% 0%;
+	-webkit-transform: scale(0.6);
+	-webkit-transform-origin: 50% 0%;
+
+	margin-bottom: -215px;
+}
+
+.preview-iframe.preview-desktop {
+	width: 964px;
+	height: 592px;
+
+	-ms-transform: scale(0.7);
+	-ms-transform-origin: 37% 0%;
+	-moz-transform: scale(0.7);
+	-moz-transform-origin: 37% 0%;
+	-o-transform: scale(0.7);
+	-o-transform-origin: 37% 0%;
+	-webkit-transform: scale(0.7);
+	-webkit-transform-origin: 37% 0%;
+}
+
+.preview-iframe-holder.preview-desktop {
+	width: 889px;
+	height: 593px;
+	overflow:hidden;
+	margin:0 auto 10px;
+
+	background: url({$AddonBaseDirectory}/images/macbookpro-final2b.png) 50% top no-repeat;
+	padding-top:33px;
+}
+
+.preview-iframe-holder.preview-tablet {
+	background: url({$AddonBaseDirectory}/images/ipad-white-portrait-final2.png) 50% top no-repeat;
+	padding-top:63px;
+}
+
+.preview-iframe-holder.preview-mobile {
+	background: url({$AddonBaseDirectory}/images/iphone5s-white-portrait-final2.png) 50% top no-repeat;
+	padding-top:83px;
+}
+
+.preview-iframe-left {
+	border: 1px solid #212121 !important;
+	margin-top:10px;
+}
+
+.preview-iframe-left-holder {
+	overflow:hidden;
+	width: 555px;
+	margin: 20px auto 10px;
+}
+
+.preview-iframe-left-holder.preview-mobile {
+	background: url({$AddonBaseDirectory}/images/iphone5s-white-portrait-final2-mini.png) 50% top no-repeat;
+	padding-top:33px;
+}
+
+.preview-iframe-left-holder.preview-tablet {
+	background: url({$AddonBaseDirectory}/images/ipad-white-portrait-final2-mini.png) 50% top no-repeat;
+	padding-top:22px;
+}
+
+.preview-iframe-left-holder.preview-desktop {
+	background: url({$AddonBaseDirectory}/images/macbookpro-final2-minib.png) 50% top no-repeat;
+	padding-top:6px;
+}
+
+.preview-iframe-left.preview-mobile {
+	width: 378px;
+	height:676px;
+
+	-ms-transform: scale(0.3);
+	-ms-transform-origin: 83% 0%;
+	-moz-transform: scale(0.3);
+	-moz-transform-origin: 83% 0%;
+	-o-transform: scale(0.3);
+	-o-transform-origin: 83% 0%;
+	-webkit-transform: scale(0.3);
+	-webkit-transform-origin: 83% 0%;
+
+	margin-bottom: -400px;
+}
+
+.preview-iframe-left.preview-tablet {
+	width: 724px;
+	height: 964px;
+
+	-ms-transform: scale(0.3);
+	-ms-transform-origin: 33.2% 0%;
+	-moz-transform: scale(0.3);
+	-moz-transform-origin: 33.2% 0%;
+	-o-transform: scale(0.3);
+	-o-transform-origin: 33.2% 0%;
+	-webkit-transform: scale(0.3);
+	-webkit-transform-origin: 33.2% 0%;
+
+	margin-bottom: -600px;
+}
+
+.preview-iframe-left.preview-desktop {
+	width: 1120px;
+	height:696px;
+
+	-ms-transform: scale(0.3);
+	-ms-transform-origin: 14% 0%;
+	-moz-transform: scale(0.3);
+	-moz-transform-origin: 14% 0%;
+	-o-transform: scale(0.3);
+	-o-transform-origin: 14% 0%;
+	-webkit-transform: scale(0.3);
+	-webkit-transform-origin: 14% 0%;
+
+	margin-bottom: -400px;
+}
+
+.Panel td {
+	padding: 5px;
+}
+
+.preview-iframe-holder.preview-export {
+	background: none !important;
+}
+
+.preview-iframe-holder.preview-test-email {
+	background: none !important;
+	text-align: center;
+}
+
+button.SmallButton {
+	width:auto!important;
+	padding: 0px 25px;
+}
+
+.dynamic-content-panel-link {
+	margin-bottom: 8px;
+	vertical-align: middle;
+}
+
+.dynamic-content-panel-link a {
+	vertical-align: top;
+	font-size: 17px;
+	text-decoration: none;
+	margin-left: 20px;
+}
+
+.dynamic-content-panel-link img {
+	margin-right: 5px;
+}
+
+/* spam check*/
+
+#SpamCheck_Container {
+	margin: 0;
+	padding: 0;
+	width: auto;
+}
+#SpamCheck_Message {
+	font-family: Tahoma,Arial;
+	font-size: 11px;
+}
+div.spamRule_Success {
+	padding: 4px 3px;
+	vertical-align: middle;
+}
+div.spamRule_Success img {
+	padding-left: 2px;
+	padding-right: 2px;
+	vertical-align: middle;
+}
+div.spamRuleBroken_row {
+	background-color: #f9f9f9;
+	clear: both;
+	display: block;
+}
+div.spamRuleBroken_row_rulename {
+	float: left;
+	padding: 3px 0 3px 5px;
+}
+div.spamRuleBroken_row_rulescore {
+	float: right;
+	padding: 3px 15px 3px 5px;
+	text-align: right;
+	width: 80px;
+}
+div.spamRuleBroken_graph {
+	background-color: #eeeeee;
+	border: 1px solid gray;
+	height: 5px;
+}
+
+.lightBoxWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 10, 10, 0.8);
+}
+
+.lightBoxWrapper iframe {
+	height: 100%;
+}
+
+.lightBoxWrapper:after {
+	content: 'x';
+	cursor: pointer;
+	position: absolute;
+	width: 20px;
+	height:20px;
+	top:20px;
+	right:20px;
+	color:#dddddd;
+	font-size:18px;
+}
+table.toolTipBox { display: none; }
