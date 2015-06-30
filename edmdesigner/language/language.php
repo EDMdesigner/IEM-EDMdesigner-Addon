@@ -82,6 +82,7 @@ define("LNG_Addon_edmdesigner_editorVM_Title-BuiltInTemplate", "Built-in templat
 define("LNG_Addon_edmdesigner_editorVM_Title-Campaign", "Campaign title: ");
 
 define("LNG_Addon_edmdesigner_editorVM_Preview", "Preview");
+define("LNG_Addon_edmdesigner_editorVM_LightBox", "Lightbox");
 define("LNG_Addon_edmdesigner_editorVM_Save", "Save");
 define("LNG_Addon_edmdesigner_editorVM_Close", "Close");
 define("LNG_Addon_edmdesigner_editorVM_SaveAndClose", "Save and close");
@@ -164,6 +165,7 @@ define("LNG_Addon_edmdesigner_subjectAndTextVM_CancelMessage", "Are you sure you
 
 define("LNG_Addon_edmdesigner_subjectAndTextVM_Close", "Close");
 define("LNG_Addon_edmdesigner_subjectAndTextVM_CheckSpamButton", "Check your email for spam");
+define("LNG_Addon_edmdesigner_subjectAndTextVM_RegenerateTextVersionButton", "Regenerate text version");
 
 
 
@@ -186,6 +188,9 @@ define("LNG_Addon_edmdesigner_apiKey", "API Key");
 define("LNG_Addon_edmdesigner_magic", "Magic");
 define("LNG_Addon_edmdesigner_languageCode", "Editor's language code");
 define("LNG_Addon_edmdesigner_host", "Host");
+define("LNG_Addon_edmdesigner_spamCheck", "Spam check");
+define("LNG_Addon_edmdesigner_autoSave", "Auto save");
+
 define("LNG_Addon_edmdesigner_hostError", "Host should start with http:// or https://");
 
 define('LNG_Addon_edmdesigner_Menu_Text', 'Manage built-in responsive templates');

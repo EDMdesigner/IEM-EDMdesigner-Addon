@@ -82,6 +82,7 @@ define("LNG_Addon_edmdesigner_editorVM_Title-BuiltInTemplate", "Beépített sabl
 define("LNG_Addon_edmdesigner_editorVM_Title-Campaign", "Kampány címe: ");
 
 define("LNG_Addon_edmdesigner_editorVM_Preview", "Előnézet");
+define("LNG_Addon_edmdesigner_editorVM_LightBox", "Lightbox");
 define("LNG_Addon_edmdesigner_editorVM_Save", "Mentés");
 define("LNG_Addon_edmdesigner_editorVM_Close", "Bezárás");
 define("LNG_Addon_edmdesigner_editorVM_SaveAndClose", "Mentés és bezárás");
@@ -165,6 +166,7 @@ define("LNG_Addon_edmdesigner_subjectAndTextVM_CancelMessage", "Biztos benne, ho
 
 define("LNG_Addon_edmdesigner_subjectAndTextVM_Close", "Bezár");
 define("LNG_Addon_edmdesigner_subjectAndTextVM_CheckSpamButton", "Spam pontszám ellenőrzése");
+define("LNG_Addon_edmdesigner_subjectAndTextVM_RegenerateTextVersionButton", "Szöveges verzió újragenerálása");
 
 
 
@@ -187,6 +189,9 @@ define("LNG_Addon_edmdesigner_apiKey", "API Key");
 define("LNG_Addon_edmdesigner_magic", "Magic");
 define("LNG_Addon_edmdesigner_languageCode", "Editor's language code");
 define("LNG_Addon_edmdesigner_host", "Host");
+define("LNG_Addon_edmdesigner_spamCheck", "Spam check");
+define("LNG_Addon_edmdesigner_autoSave", "Auto save");
+
 define("LNG_Addon_edmdesigner_hostError", "Host should start with http:// or https://");
 
 define('LNG_Addon_edmdesigner_Menu_Text', 'Beépített reszponzív sablonok kezelése');

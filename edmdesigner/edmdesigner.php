@@ -30,8 +30,7 @@ require_once(dirname(__FILE__) . "/utils.php");
  */
 class Addons_edmdesigner extends Interspire_Addons
 {
-	private $apiBaseUrl = "https://api.edmdesigner.com";
-	//private $apiBaseUrl = "localhost:3001";
+	private $apiUrls = null;
 	private $version = "1.0.0";
 
 	private $userId = null;
@@ -146,10 +145,7 @@ class Addons_edmdesigner extends Interspire_Addons
 
 	//*
 
-	private function _createAdminToken($apiBaseUrl, $publicId, $magic) {
-
-		$getTokenUrl = $apiBaseUrl . "/api/token";
-
+	private function _createAdminToken($publicId, $magic) {
 		// handshake
 		$ip = $_SERVER["REMOTE_ADDR"];
 		$timestamp = time();
@@ -161,77 +157,24 @@ class Addons_edmdesigner extends Interspire_Addons
 				"ts"	=> $timestamp,
 				"hash"	=> $hash
 		);
-		$tokenResult = json_decode(sendPostRequest($getTokenUrl, $data), true);
+		$tokenResult = json_decode(sendPostRequest("/api/token", $data), true);
 
 		return $tokenResult;
 	}
 
 	private function createAdminToken() {
-		$apiBaseUrl = $this->settings["EDMdesignerHost"];
 		$publicId = $this->settings["EDMdesignerApiKey"];
 		$magic = $this->settings["EDMdesignerMagic"];
 
-		return $this->_createAdminToken($apiBaseUrl, $publicId, $magic);
+		return $this->_createAdminToken($publicId, $magic);
 	}
-
-	/*
-	private function configGallery($publicId, $magic) {
-		$adminToken = $this->_createAdminToken($publicId, $magic);
-		$adminToken = $adminToken["token"];
-
-		$addonBaseDirectory = substr($this->template_url, 0, -11);
-
-		$galleryConfig = array(
-        	"uploadRoute" => $addonBaseDirectory . "/UploadImage.php",
-        	"deleteRoute" => $addonBaseDirectory . "/DeleteImage.php"
-        );
-
-        return sendPostRequest($this->apiBaseUrl . "/json/gallery/config?token=" . $adminToken . "&user=admin", $galleryConfig);
-	}
-
-	private function configureCustomStrings($publicId, $magic) {
-		$adminToken = $this->_createAdminToken($publicId, $magic);
-		$adminToken = $adminToken["token"];
-
-		$customStrings = array(
-			"id" => "mailCampCustomStrings",
-			"title" => "Custom strings",
-			"items" => array()
-		);
-
-		$customStrings["items"][] = array(
-			"label" => "Insert unsubscribe link2",
-			"replacer" => "<a href=\"%%unsubscribelink%%\" target=\"_blank\">Unsubscribe me from this list2</a>"
-		);
-		$customStrings["items"][] =  array(
-			"label" => "testLabel",
-			"replacer" => "testReplacer"
-		);
-
-
-		$db = IEM::getDatabase();
-		if (!$db) {
-			
-		}
-
-		$customFields = $db->Query("SELECT * FROM [|PREFIX|]customfields");
-
-		while ($row = $db->Fetch($customFields)) {
-            //print_r($row);
-            //print "<br>";
-        }
-
-		$url = $this->apiBaseUrl . "/json/customStrings/add?token=" . $adminToken . "&user=admin";
-		return sendPostRequest($url , $customStrings);
-	}
-	*/
 
 	//*
 	private function registerUserToEDMdesigner($edmdUsername) {
 		$adminToken = $this->createAdminToken();
 		$adminToken = $adminToken["token"];
 
-		$createUserUrl = $this->apiBaseUrl . "/json/user/create?token=" . $adminToken . "&user=admin";
+		$createUserUrl = "/json/user/create?token=" . $adminToken . "&user=admin";
 
 
 		$user = GetUser();
@@ -288,9 +231,6 @@ class Addons_edmdesigner extends Interspire_Addons
         $this->edmdSettings = $settings;
 
 		//$this->registerActUserIfNeeded();
-		if(strcmp($settings["EDMdesignerHost"], "") !== 0) {
-			$this->apiBaseUrl = $settings["EDMdesignerHost"];
-		}
 
 		foreach ($this->settings as $k => $v) {
 			$this->template_system->Assign($k, $v);
@@ -303,6 +243,8 @@ class Addons_edmdesigner extends Interspire_Addons
         $this->template_system->Assign("EDMdesignerMagic", $settings["EDMdesignerMagic"]);
         $this->template_system->Assign("EDMdesignerLang", $settings["EDMdesignerLang"]);
         $this->template_system->Assign("EDMdesignerHost", $settings["EDMdesignerHost"]);
+        $this->template_system->Assign("EDMdesignerSpamCheck", $settings["EDMdesignerSpamCheck"]);
+        $this->template_system->Assign("EDMdesignerAutoSave", $settings["EDMdesignerAutoSave"]);
 
         $this->template_system->Assign("userId", $this->application_url . " - " . $this->userId);
 
@@ -319,15 +261,16 @@ class Addons_edmdesigner extends Interspire_Addons
         $settings["EDMdesignerApiKey"] = $_POST["EDMdesignerApiKey"];
         $settings["EDMdesignerMagic"] = $_POST["EDMdesignerMagic"];
         $settings["EDMdesignerLang"] = $_POST["EDMdesignerLang"];
-        $settings["EDMdesignerHost"] = $_POST["EDMdesignerHost"];
+        $settings["EDMdesignerSpamCheck"] = $_POST["EDMdesignerSpamCheck"];
+        $settings["EDMdesignerAutoSave"] = $_POST["EDMdesignerAutoSave"];
+
 
 		if (empty($settings)) {
 			return false;
 		}
 
-		$this->apiBaseUrl = $settings["EDMdesignerHost"];
 
-		$adminToken = $this->_createAdminToken($settings["EDMdesignerHost"], $settings["EDMdesignerApiKey"], $settings["EDMdesignerMagic"]);
+		$adminToken = $this->_createAdminToken($settings["EDMdesignerApiKey"], $settings["EDMdesignerMagic"]);
 		$adminToken = $adminToken["token"];
 
 		//configure gallery
@@ -338,7 +281,7 @@ class Addons_edmdesigner extends Interspire_Addons
         	"deleteRoute" => $addonBaseDirectory . "/DeleteImage.php"
         );
 
-        sendPostRequest($this->apiBaseUrl . "/json/gallery/config?token=" . $adminToken . "&user=admin", $galleryConfig);
+        sendPostRequest("/json/gallery/config?token=" . $adminToken . "&user=admin", $galleryConfig);
 
         //configure dynamic content
         $postData = array(
@@ -352,9 +295,7 @@ class Addons_edmdesigner extends Interspire_Addons
         	)
         );
 
-        sendPostRequest($this->apiBaseUrl . "/json_v" . $this->version . "/apiKey/" . $settings["EDMdesignerApiKey"] . "/customStringButtons?user=admin&token=" . $adminToken, $postData);
-
-        //sendPostRequest("https://api-test.edmdesigner.com/json_v" . $version . "/apiKey/" . $settings["EDMdesignerApiKey"] . "/customStringButtons?user=admin&token=" . $adminToken, $postData);
+        sendPostRequest("/json_v" . $this->version . "/apiKey/" . $settings["EDMdesignerApiKey"] . "/customStringButtons?user=admin&token=" . $adminToken, $postData);
 
 		return self::SetSettings($settings);
 	}
@@ -497,8 +438,6 @@ class Addons_edmdesigner extends Interspire_Addons
 		$flashMessages = GetFlashMessages();
 		$userId = $this->userId;
 
-		$this->apiBaseUrl = $this->settings["EDMdesignerHost"];
-
 
 		$this->registerUserToEDMdesigner($userId);
 
@@ -524,7 +463,6 @@ class Addons_edmdesigner extends Interspire_Addons
 		$this->template_system->Assign("URL", $this->url, false);
 
 
-		$this->template_system->Assign("EDMdesignerApiBaseUrl", $this->apiBaseUrl, false);
 		$this->template_system->Assign("TokenUrl", urlencode($this->admin_url . "&Action=Token&Ajax=true"));
 
 		$this->template_system->Assign("UserId", $userId, false);
@@ -533,6 +471,9 @@ class Addons_edmdesigner extends Interspire_Addons
 
 		$this->template_system->Assign("CampaignMode", $campaignMode, false);
 		$this->template_system->Assign("LangCode", $settings["EDMdesignerLang"], false);
+		$this->template_system->Assign("EDMdesignerSpamCheck", $settings["EDMdesignerSpamCheck"], false);
+		$this->template_system->Assign("EDMdesignerAutoSave", $settings["EDMdesignerAutoSave"], false);
+		$this->template_system->Assign("ImageMaxWidth", SENDSTUDIO_MAX_IMAGEWIDTH, false);
 
 		$this->template_system->ParseTemplate($templateName);
 	}
@@ -625,12 +566,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	public function Admin_Action_Token() {
 		header("Content-type: application/json;charset=utf-8");
 
-
 		$this->checkUserId();
-
-		if(strcmp($this->settings["EDMdesignerHost"],"") !== 0) {
-			$this->apiBaseUrl = $this->settings["EDMdesignerHost"];
-		}
 
 		$settings = getApiKeyAndMagic();
 
@@ -642,8 +578,6 @@ class Addons_edmdesigner extends Interspire_Addons
 
 		$hash = md5($publicId . $ip . $timestamp . $magic);
 
-		$url = $this->apiBaseUrl . "/api/token";
-
 		$data = array(
 					"id"	=> $publicId,
 					"uid"	=> $_REQUEST["userId"],
@@ -652,18 +586,20 @@ class Addons_edmdesigner extends Interspire_Addons
 					"hash"	=> $hash
 		);
 
-		// use key 'http' even if you send the request to https://...
-		$options = array(
-		    "http" => array(
-		        "header"  => "Content-type: application/x-www-form-urlencoded\r\n",
-		        "method"  => "POST",
-		        "content" => http_build_query($data),
-		    )
-		);
+		$tokenResult = sendPostRequest("/api/token", $data);
 
-		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
+		print($tokenResult);
+	}
 
-		print($result);
+	public function Admin_Action_Test() {
+		echo ini_get("allow_url_fopen");
+
+		ini_set("allow_url_fopen", 1);
+
+		echo ini_get("allow_url_fopen");
+
+		echo "\nPHP version: \n";
+
+		echo phpversion();
 	}
 }

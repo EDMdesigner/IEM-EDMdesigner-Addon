@@ -8,7 +8,10 @@ if(typeof jQuery === 'undefined'){
 </script>-->
 <script src="{$AddonBaseDirectory}/js/knockout-min.js"></script>
 
-<script src="{$EDMdesignerApiBaseUrl}/EDMdesignerAPI.js?route={$TokenUrl}"></script>
+<script src="https://api-static.edmdesigner.com/EDMdesignerAPI.js"></script>
+<script>
+	var tokenUrl = decodeURIComponent("{$TokenUrl}"); //this variable is used when initEDMdesignerPlugin is called in EntryPoints.js
+</script>
 
 <script src="{$AddonBaseDirectory}/js/knockoutPaginationVM.js"></script>
 <script src="{$AddonBaseDirectory}/js/ViewModels.js"></script>
@@ -259,6 +262,31 @@ border: 1px solid gray;
 height: 5px;
 }
 
+.lightBoxWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(10, 10, 10, 0.8);
+}
+
+.lightBoxWrapper iframe {
+	height: 100%;
+}
+
+.lightBoxWrapper:after {
+	content: 'x';
+	cursor: pointer;
+	position: absolute;
+	width: 20px;
+	height:20px;
+	top:20px;
+	right:20px;
+	color:#dddddd;
+	font-size:18px;
+}
+
 </style>
 
 <!-- ko if: loading -->
@@ -272,7 +300,9 @@ height: 5px;
 			<button style="float:right;" class="SmallButton" data-bind="click: close, text: l10n.close"></button>
 			<button style="float:right;" class="SmallButton" data-bind="click: templateExport, text: l10n.exportButton"></button>
 			<button style="float:right;" class="SmallButton" data-bind="click: changeToSendEmailMode, text: l10n.sendTestEmail"></button>
+			<!-- ko if: addonConfig.spamCheck -->
 			<button style="float:right;" class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton"></button>
+			<!-- /ko -->
 
 			<div style="clear:both;"></div>
 
@@ -585,6 +615,8 @@ height: 5px;
 						<div style="float:right;">
 							<!-- ko if: loaded -->
 								<!-- ko ifnot: saveInProgress -->
+									<button class="SmallButton" data-bind="click: openLightBox, text: l10n.lightBox"></button>
+									
 									<button class="SmallButton" data-bind="click: save, text: l10n.save"></button>
 
 									<!-- ko if: $root.campaignMode -->
@@ -606,7 +638,7 @@ height: 5px;
 							<!-- /ko -->
 						</div>
 						<div style="clear:both;"></div>
-						<div>
+						<div id="EDMdesigner-editor-wrapper" data-bind="click: closeLightBox">
 							<iframe id="EDMdesigner-editor" style="border-width: 0;margin: 0 auto;min-width: 996px;display:block;" data-bind="attr: {src: src, width: width, height: height}"></iframe>
 						</div>
 							<!--<div>
@@ -735,7 +767,11 @@ height: 5px;
 							<!-- ko if: save.allowed -->
 							<button class="SmallButton" data-bind="click: save, text: l10n.save"></button>
 							<!-- /ko -->
-							<button class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton">
+							<button class="SmallButton" data-bind="click: regenerateTextVersion, text: l10n.regenerateTextVersionButton"></button>
+
+							<!-- ko if: addonConfig.spamCheck -->
+							<button class="SmallButton" data-bind="click: checkSpam, text: l10n.checkSpamButton"></button>
+							<!-- /ko -->
 							<button class="SmallButton" data-bind="click: cancel, text: l10n.cancel"></button>
 						</div>
 						<!-- /ko -->
@@ -871,6 +907,7 @@ height: 5px;
 				return "{$lang.Addon_edmdesigner_editorVM_Title-Template}";
 			}()),
 			preview: "{$lang.Addon_edmdesigner_editorVM_Preview}",
+			lightBox: "{$lang.Addon_edmdesigner_editorVM_LightBox}",
 
 			save: "{$lang.Addon_edmdesigner_editorVM_Save}",
 			close: "{$lang.Addon_edmdesigner_editorVM_Close}",
@@ -976,10 +1013,18 @@ height: 5px;
 			close: "{$lang.Addon_edmdesigner_subjectAndTextVM_Close}",
 			checkSpamButton: "{$lang.Addon_edmdesigner_subjectAndTextVM_CheckSpamButton}",
 
+			regenerateTextVersionButton: "{$lang.Addon_edmdesigner_subjectAndTextVM_RegenerateTextVersionButton}",
+
 			save: "{$lang.Addon_edmdesigner_subjectAndTextVM_Save}",
 			cancel: "{$lang.Addon_edmdesigner_subjectAndTextVM_Cancel}",
 			cancelConfirmMessage: "{$lang.Addon_edmdesigner_subjectAndTextVM_CancelMessage}"
 		}
+	};
+
+	var addonConfig = {
+		spamCheck: "{$EDMdesignerSpamCheck}" === "true",
+		autoSave: "{$EDMdesignerAutoSave}" === "true",
+		imageMaxWidth: "{$ImageMaxWidth}"
 	};
 
 	var urls = {

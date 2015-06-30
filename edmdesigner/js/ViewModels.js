@@ -563,6 +563,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 
 			function listenForLoaded(event) {
 				console.log(event);
+
 				if (event.data === "ProjectLoadingSuccess") {
 					loaded(true);
 					save();
@@ -606,6 +607,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 			var l10n = {
 				title: "Edit template",
 				preview: "Preview",
+				lightBox: "Lightbox",
 				save: "Save",
 				close: "Close",
 				saveAndClose: "Save and close",
@@ -645,17 +647,8 @@ var initEDMdesignerViewModels = (function($, ko) {
 				var win = iframe[0].contentWindow;
 				var iframeSrc = iframe.attr("src");
 				var host = location.protocol + iframeSrc.split("?")[0];
-				win.postMessage("saveProject", host);
 
 				saveInProgress(true);
-
-				//*
-				if (window.addEventListener){
-					addEventListener("message", savingResult, false);
-				} else {
-					attachEvent("onmessage", savingResult);
-				}
-				//*/
 
 				function savingResult(event) {
 					var origin = location.protocol + iframeSrc.split("?")[0];
@@ -669,8 +662,10 @@ var initEDMdesignerViewModels = (function($, ko) {
 					console.log(event.data);
 					if(event.data === "Save result: success") {
 						console.log("Save success...");
-					} else {
+					} else if (event.data === "Save result: failed") {
 						console.log("Save failed...");
+					} else {
+						return;
 					}
 					saveInProgress(false);
 
@@ -685,6 +680,16 @@ var initEDMdesignerViewModels = (function($, ko) {
 						detachEvent("onmessage", savingResult);
 					}
 				}
+
+				//*
+				if (window.addEventListener){
+					addEventListener("message", savingResult, false);
+				} else {
+					attachEvent("onmessage", savingResult);
+				}
+				//*/
+
+				win.postMessage("saveProjectNoDeselect", host);
 				//$(window).on("message", savingResult);
 			}
 
@@ -698,6 +703,27 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 
 				saveDoc(callbacks.save);
+			}
+
+			if (addonConfig.autoSave) {
+				var timeoutId;
+				window.addEventListener("message", function(event) {
+					if (event.data === "JsonChanged") {
+						if (timeoutId) {
+							clearTimeout(timeoutId);
+						}
+
+						console.log("Autosaving in 5s.");
+
+						timeoutId = setTimeout(function() {
+							var iframe = $(iframeId);
+							if (iframe.length > 0) {
+								save();
+								timoutId = null;
+							}
+						}, 5000);
+					}
+				});
 			}
 
 			function close() {
@@ -721,9 +747,18 @@ var initEDMdesignerViewModels = (function($, ko) {
 			}
 
 			edmPlugin.openProject(projectVM._id, langCode, {autosave: 0}, function(result) {
-				src(result.url);
+				src(result.url + "&consoleLog=on&imageMaxWidth=" + addonConfig.imageMaxWidth);
 				loading(false);
 			});
+
+
+			function openLightBox() {
+				$("#EDMdesigner-editor-wrapper").addClass("lightBoxWrapper");
+			}
+
+			function closeLightBox() {
+				$("#EDMdesigner-editor-wrapper").removeClass("lightBoxWrapper");
+			}
 
 			return {
 				l10n: l10n,
@@ -737,6 +772,9 @@ var initEDMdesignerViewModels = (function($, ko) {
 				src: src,
 
 				saveInProgress: saveInProgress,
+
+				openLightBox: openLightBox,
+				closeLightBox: closeLightBox,
 
 				save: save,
 				close: close,
@@ -1347,6 +1385,8 @@ var initEDMdesignerViewModels = (function($, ko) {
 				close: "Close",
 				checkSpamButton: "Check for spam",
 
+				regenerateTextVersionButton: "Regenerate text version",
+
 				save: "Save",
 				cancel: "Cancel",
 				cancelConfirmMessage: "Are you sure? Your unsaved data will be lost"
@@ -1387,6 +1427,10 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 			}
 
+			function regenerateTextVersion() {
+				textBody(callbacks.regenerateTextVersion())
+			}
+
 			return {
 				l10n: l10n,
 
@@ -1397,6 +1441,8 @@ var initEDMdesignerViewModels = (function($, ko) {
 				htmlResult: htmlResult,
 
 				working: working,
+
+				regenerateTextVersion: regenerateTextVersion,
 
 				save: save,
 				cancel: cancel

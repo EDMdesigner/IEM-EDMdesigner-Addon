@@ -29,10 +29,18 @@
             </tr>
             <tr>
                 <td class="FieldLabel" style="width:140px;">
-                	{$lang.Addon_edmdesigner_host}
+                    {$lang.Addon_edmdesigner_spamCheck}
                 </td>
                 <td>
-                    <input id="EDMdesignerHostInput" type="text" name="EDMdesignerHost" value="{$EDMdesignerHost}" />
+                    <input id="EDMdesignerSpamCheck" type="checkbox" name="EDMdesignerSpamCheck" value="true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="FieldLabel" style="width:140px;">
+                    {$lang.Addon_edmdesigner_autoSave}
+                </td>
+                <td>
+                    <input id="EDMdesignerAutoSave" type="checkbox" name="EDMdesignerAutoSave" value="true" />
                 </td>
             </tr>
 			<tr>
@@ -47,6 +55,14 @@
 	</form>
 
     <script>
+        if ("{$EDMdesignerSpamCheck}" === "true") {
+            $("#EDMdesignerSpamCheck").attr("checked", "checked");
+        }
+
+        if ("{$EDMdesignerAutoSave}" === "true") {
+            $("#EDMdesignerAutoSave").attr("checked", "checked");
+        }
+
         if ($("#EDMdesignerHostInput").val() === "") {
             $("#EDMdesignerHostInput").val("https://api.edmdesigner.com");
         }

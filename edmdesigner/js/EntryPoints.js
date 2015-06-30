@@ -37,7 +37,8 @@ var edmDesignerEntryPoints = (function(ko) {
 			campaignMode: campaignMode
 		});
 
-		initEDMdesignerPlugin(userId, function(edmPlugin) {
+		//tokenUrl should be a global printed by template_manager.tpl
+		initEDMdesignerPlugin(tokenUrl, userId, function(edmPlugin) {
 			var edmvms = initEDMdesignerViewModels(edmPlugin, fromEmail, i18n, langCode, loading, campaignMode);
 
 			/*
@@ -254,7 +255,7 @@ var edmDesignerEntryPoints = (function(ko) {
 					save: function() {
 						if (campaignMode) {
 							updateCampaignInterspire(project, function(result) {
-								console.log("Interspire save ok?");
+								console.log("Interspire save ok.");
 							});
 							updateCampaignInfo(project);
 						}
@@ -422,7 +423,10 @@ var edmDesignerEntryPoints = (function(ko) {
 							updateProjectList();
 						}
 					},
-					checkSpam: checkSpam(project._id)
+					checkSpam: checkSpam(project._id),
+					regenerateTextVersion: function() {
+						return generateTextBody(generatedHtml);
+					}
 				}));
 			}
 
@@ -622,6 +626,8 @@ var edmDesignerEntryPoints = (function(ko) {
 			}
 
 			updateProjectList();
+		}, function(error) {
+			console.log(error);
 		});
 
 		
