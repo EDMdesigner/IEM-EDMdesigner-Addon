@@ -587,7 +587,11 @@ var edmDesignerEntryPoints = (function(ko) {
 
 				//links (a tags)
 				$(tmp).find("a").each(function(index) {
-					tmp = tmp.replace(this.outerHTML, "[" + this.outerHTML.replace(/[\r\n]/, "") + "](" + this.href + ")");
+					//in IE this.href can be an invalid argument sometimes... (RED-3491)
+					try {
+						tmp = tmp.replace(this.outerHTML, "[" + this.outerHTML.replace(/[\r\n]/, "") + "](" + this.href + ")");
+					} catch(e) {
+					}
 				});
 
 				//Headers (h1-h6)

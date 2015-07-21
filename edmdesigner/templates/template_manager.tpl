@@ -71,7 +71,7 @@ if(typeof jQuery === 'undefined'){
 									<span data-bind="text: l10n.fromLabel"></span>:
 								</td>
 								<td>
-									<input type="text" data-bind="value: fromEmail"/>
+									<input class="Field250" type="text" data-bind="value: fromEmail"/>
 								</td>
 							</tr>
 							<tr>
@@ -79,7 +79,7 @@ if(typeof jQuery === 'undefined'){
 									<span data-bind="text: l10n.toLabel"></span>:
 								</td>
 								<td>
-									<input type="text" data-bind="value: toEmail"/>
+									<input class="Field250" type="text" data-bind="value: toEmail"/>
 								</td>
 							</tr>
 							<tr>
@@ -87,7 +87,7 @@ if(typeof jQuery === 'undefined'){
 									<span data-bind="text: l10n.subjectLabel"></span>:
 								</td>
 								<td>
-									<input type="text" data-bind="value: testSubject"/>
+									<input class="Field250" type="text" data-bind="value: testSubject"/>
 								</td>
 							</tr>
 							<tr>
