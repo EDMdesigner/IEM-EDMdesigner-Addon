@@ -504,7 +504,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 
 				if (placeholder == '%%unsubscribelink%%')
 				{
-					placeholder = "<a href='http://%%unsubscribelink%%/'>" + UnsubLinkPlaceholder + "</a>";
+					placeholder = "<a href='%%unsubscribelink%%'>" + UnsubLinkPlaceholder + "</a>";
 				}
 				if (placeholder == '%%facebookshare%%')
 				{
@@ -747,7 +747,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 			}
 
 			edmPlugin.openProject(projectVM._id, langCode, {autosave: 0}, function(result) {
-				src(result.url + "&consoleLog=on&imageMaxWidth=" + addonConfig.imageMaxWidth);
+				src(result.url.replace("https", "http") + "&consoleLog=on&imageMaxWidth=" + addonConfig.imageMaxWidth);
 				loading(false);
 			});
 
