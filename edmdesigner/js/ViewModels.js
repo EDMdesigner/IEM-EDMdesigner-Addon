@@ -689,7 +689,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 				//*/
 
-				if (noDeselect) {
+				if (typeof noDeselect === "boolean" && noDeselect) {
 					win.postMessage("saveProjectNoDeselect", host);
 				} else {
 					win.postMessage("saveProject", host);
