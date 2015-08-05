@@ -642,7 +642,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 
 			var saveInProgress = ko.observable(false);
 
-			function saveDoc(callback) {
+			function saveDoc(callback, noDeselect) {
 				var iframe = $(iframeId);
 				var win = iframe[0].contentWindow;
 				var iframeSrc = iframe.attr("src");
@@ -689,11 +689,15 @@ var initEDMdesignerViewModels = (function($, ko) {
 				}
 				//*/
 
-				win.postMessage("saveProjectNoDeselect", host);
+				if (noDeselect) {
+					win.postMessage("saveProjectNoDeselect", host);
+				} else {
+					win.postMessage("saveProject", host);
+				}
 				//$(window).on("message", savingResult);
 			}
 
-			function save () {
+			function save (noDeselect) {
 				if(campaignMode) {
 					var subject = projectVM.subject();
 
@@ -702,7 +706,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 					}
 				}
 
-				saveDoc(callbacks.save);
+				saveDoc(callbacks.save, noDeselect);
 			}
 
 			if (addonConfig.autoSave) {
@@ -718,7 +722,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 						timeoutId = setTimeout(function() {
 							var iframe = $(iframeId);
 							if (iframe.length > 0) {
-								save();
+								save(true);
 								timoutId = null;
 							}
 						}, 5000);
