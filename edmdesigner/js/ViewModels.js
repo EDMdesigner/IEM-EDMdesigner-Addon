@@ -275,6 +275,7 @@ var initEDMdesignerViewModels = (function($, ko) {
 			function sendTestEmail() {
 				var from = fromEmail();
 				var to = toEmail();
+				to = to.trim();
 				var subject = testSubject();
 				if(from === "" ||  to === "") {
 					return alert(l10n.noEmail);
