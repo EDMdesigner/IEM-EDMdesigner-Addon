@@ -1,14 +1,18 @@
 <?php
 require_once dirname(__FILE__) . "/../../includes/config.php";
 
+
 //ini_set("allow_url_fopen", true);
 
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
+//ini_set('display_errors',1);
+//ini_set('display_startup_errors',1);
 
-
+function printError($msg) {
+    print "{\"err\": \"" . $msg . "\"}";
+    exit;
+}
 
 function sendPostRequest($url, $data) {
     static $apis = array(

@@ -13,11 +13,6 @@ require_once dirname(__FILE__) . "/utils.php";
 
 header("Content-type: application/json;charset=utf-8");
 
-function printError($msg) {
-	print "{\"err\": \"" . $msg . "\"}";
-	exit;
-}
-
 if (!isset($_FILES["file"])) {
 	printError("File input is needed.");
 }
