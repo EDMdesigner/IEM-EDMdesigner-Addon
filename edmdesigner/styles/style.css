@@ -76,17 +76,17 @@ body {
 	overflow:hidden;
 	margin:0 auto 10px;
 
-	background: url({$AddonBaseDirectory}/images/macbookpro-final2b.png) 50% top no-repeat;
+	background: url(../images/macbookpro-final2b.png) 50% top no-repeat;
 	padding-top:33px;
 }
 
 .preview-iframe-holder.preview-tablet {
-	background: url({$AddonBaseDirectory}/images/ipad-white-portrait-final2.png) 50% top no-repeat;
+	background: url(../images/ipad-white-portrait-final2.png) 50% top no-repeat;
 	padding-top:63px;
 }
 
 .preview-iframe-holder.preview-mobile {
-	background: url({$AddonBaseDirectory}/images/iphone5s-white-portrait-final2.png) 50% top no-repeat;
+	background: url(../images/iphone5s-white-portrait-final2.png) 50% top no-repeat;
 	padding-top:83px;
 }
 
@@ -102,17 +102,17 @@ body {
 }
 
 .preview-iframe-left-holder.preview-mobile {
-	background: url({$AddonBaseDirectory}/images/iphone5s-white-portrait-final2-mini.png) 50% top no-repeat;
+	background: url(../images/iphone5s-white-portrait-final2-mini.png) 50% top no-repeat;
 	padding-top:33px;
 }
 
 .preview-iframe-left-holder.preview-tablet {
-	background: url({$AddonBaseDirectory}/images/ipad-white-portrait-final2-mini.png) 50% top no-repeat;
+	background: url(../images/ipad-white-portrait-final2-mini.png) 50% top no-repeat;
 	padding-top:22px;
 }
 
 .preview-iframe-left-holder.preview-desktop {
-	background: url({$AddonBaseDirectory}/images/macbookpro-final2-minib.png) 50% top no-repeat;
+	background: url(../images/macbookpro-final2-minib.png) 50% top no-repeat;
 	padding-top:6px;
 }
 
