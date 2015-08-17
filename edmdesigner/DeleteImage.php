@@ -24,8 +24,8 @@ if (!isset($values["url"]) || !isset($values["userId"])) {
 }
 
 
-$hash = $values["hash"];
-$time = $values["time"];
+$hash = $_GET["hash"];
+$time = $_GET["time"];
 
 
 if (!checkHookSecurity($hash, $time)) {
