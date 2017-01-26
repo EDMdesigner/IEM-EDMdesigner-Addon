@@ -15,8 +15,7 @@ An EDMdesigner addon for Interspire Email Marketer.
   * Enter the your API key and magic word
   * Enter the preferred [language code] (#supported-languages)
   * Select the closest [API server] (#api-servers) to your location
-    * This is optional, you can leave http://api.edmdesigner.com there.
-    * You can use http and https as well
+  	* You can use http and https as well
 
 Attention! Your server must be reachable from our servers, otherwise uploading and removing images won't be able to work! If your IEM instance is behind a firewall, please add our servers on a whitelist on port 80.
 
@@ -27,27 +26,24 @@ To find out the ip address of a domain, please enter the following in a terminal
 
 Where HOSTNAME is the name of the API host where you connect with your addon.
 
-
-## API servers:
-These are the domain names of the API servers what you can use. You should pick the one which is closest to you.
-
- * api.edmdesigner.com
- * api-virginia.edmdesigner.com
- * api-ireland.edmdesigner.com
- * api-sydney.edmdesigner.com
-
-Note that api.edmdesigner.com and api-virginia.edmdesigner.com are identical.
-
 ## Supported Languages
 There is a difference between the supported languages in our API (the editor itself) and the addon. If you would like to help us to create more localizations, please drop us an email. If you want to change the language of the addon, you have to overwrite the language.php file. In a later release, you won't have to do this.
 
 ### API
  * English (Language code: en)
- * Dutch (Language code: nl)
+ * German (Language code: de)
+ * French (Language code: fr)
+ * Spanish (Language code: es)
  * Hungarian (Language code: hu)
  * Italian (Language code: it)
+ * Dutch (Language code: nl)
+ * Polish (Language code: pl)
  * Romanian (Language code: ro)
  * Russian (Language code: ru)
+ * Portuguese Brazilian (Language code: pt-BR)
+ * Chinese Simplified (Language code: zh-HANS)
+
+If the language you want to use is not available yet then please contact us with the following email address: info@edmdesigner.com
 
 ### IEM-EDMdesigner-Addon
  * English (Language code: en)
