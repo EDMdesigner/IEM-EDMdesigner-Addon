@@ -177,7 +177,7 @@ class Addons_edmdesigner extends Interspire_Addons
 		$createUserUrl = "/json/user/create?token=" . $adminToken . "&user=admin";
 
 
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 
 		$result = json_decode(sendPostRequest($createUserUrl, array(
 			"id" => $this->application_url . " - " . $edmdUsername,
@@ -194,7 +194,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	}
 
 	private function registerActUserIfNeeded() {
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 		$this->userId = $user->userid;
 		$edmdUserSettings = $user->GetSettings("EDMdesignerSettings");
 
@@ -222,7 +222,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	//*/
 
 	public function Configure() {
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 		if (!$user->HasAccess("edmdesigner", "settings")) {
 			return;
 		}
@@ -252,7 +252,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	}
 
 	public function SaveSettings() {
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 		if (!$user->HasAccess("edmdesigner", "settings")) {
 			return;
 		}
@@ -329,7 +329,7 @@ class Addons_edmdesigner extends Interspire_Addons
 
 	function GetEventListeners() {
 		$listeners = array();
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 
 		$my_file = '{%IEM_ADDONS_PATH%}/edmdesigner/edmdesigner.php';
 			
@@ -360,7 +360,7 @@ class Addons_edmdesigner extends Interspire_Addons
 
 	static function GetTextMenuItems(EventData_IEM_SENDSTUDIOFUNCTIONS_GENERATETEXTMENULINKS $data)
 	{
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 
 		try {
 			$me = new self;
@@ -408,7 +408,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	static function SetMenuItems(EventData_IEM_SENDSTUDIOFUNCTIONS_GENERATEMENULINKS $data)
 	{
 		$self = new self;
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 
 		if (!isset($data->data["newsletter_button"])) {
 			$data->data["newsletter_button"] = array();
@@ -432,7 +432,7 @@ class Addons_edmdesigner extends Interspire_Addons
 		//if (!$templaterUser) {
 		//	$this->registerActUserIfNeeded();
 		//}
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 		$this->userId = $user->userid;
 
 		$flashMessages = GetFlashMessages();
@@ -466,7 +466,7 @@ class Addons_edmdesigner extends Interspire_Addons
 		$this->template_system->Assign("TokenUrl", urlencode($this->admin_url . "&Action=Token&Ajax=true"));
 
 		$this->template_system->Assign("UserId", $userId, false);
-		$this->template_system->Assign("interspireUserId", $user->userid, false);
+		$this->template_system->Assign("interspireUserId", str_replace(".","-",trim($user->username)).'-'.$user->userid, false);
 		$this->template_system->Assign("FromEmail", $user->emailaddress, false);
 
 		$this->template_system->Assign("CampaignMode", $campaignMode, false);
@@ -483,7 +483,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	}
 
 	public function Admin_Action_ManageCampaigns() {
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 		//if (!$user->HasAccess("edmdesigner", "ManageCampaigns")) {
 		//	return;
 		//}
@@ -492,7 +492,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	}
 
 	public function Admin_Action_ManageTemplates() {
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 		if (!$user->HasAccess("edmdesigner", "ManageTemplates")) {
 			return;
 		}
@@ -501,7 +501,7 @@ class Addons_edmdesigner extends Interspire_Addons
 	}
 
 	public function Admin_Action_ManageDefaultTemplates() {
-		$user = GetUser();
+		$user = IEM::getCurrentUser(); //GetUser();
 
 		/*
 		if (!$user->Admin()) {
@@ -539,7 +539,7 @@ class Addons_edmdesigner extends Interspire_Addons
 
 			return "templater";
 		} else {
-			$user = GetUser();
+			$user = IEM::getCurrentUser(); //GetUser();
 
 			if ($user->userid != intval($postUser[1])) {
 				$this->printError("Problem with the userId. 3 --- " . $user->userid . " != " . intval($postUser[1]));
